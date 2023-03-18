@@ -53,10 +53,6 @@ font-style
 font-weight
 font-type
 
-Where do you insert the link to JavaScript?
-<body>
-<head>
-<main>
-<footer>
+
 
 Arrays im javascript can be used to store
