@@ -1,0 +1,29 @@
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+#high-scores {
+    font-size:20px;
+    font-weight: bold;
+    color: violet;
+    margin-left: 10px;
+}
+
+#timer {
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.quiz-info {
+    margin-top: 50px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+}
+

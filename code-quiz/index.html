@@ -5,19 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coding Quiz</title>
-    <link rel="stylesheet" type="text/css" href=".assets/style.css" />
+    <!-- link to CSS file -->
+    <link rel="stylesheet" type="text/css" href="./assets/style.css"/>
 </head> 
 <body>
-    <!-- start quiz button -->
-    <div class="start-button"><button>Start Quiz</button></div>
-    <div class="view-high-scores"></div>
-    <div class="quiz-box">
-        <header>
-            <p>"Coding Quiz"</p>
-        </header>
+    <header>
+    <div id="high-scores">View High Scores</div>
+    <div id="timer">Time:</div>
+    </header>
+
+        <!-- quiz information before user starts the quiz -->
+    <div class="quiz-info">
+        <h2>Coding Quiz Challenge</h2>
+        <p>Try to answer the following code-related questions within the time limit. Keep in mind
+            that incorrect answers will penalize your score and time by ten seconds.
+        </p>
+        <!-- start quiz button -->
+        <div class="start-button"><button>Start Quiz</button></div>
     </div>
-    
-    </main>
+
    <script src="script.js"></script>
 </body>
 </html>
