@@ -11,7 +11,7 @@
 <body>
     <header>
     <div id="high-scores">View High Scores</div>
-    <div id="timer">Time:</div>
+    <div id="timer">Time:</div> <!-- still needed? -->
     </header>
 
         <!-- quiz information before user starts the quiz -->
@@ -20,8 +20,32 @@
         <p>Try to answer the following code-related questions within the time limit. Keep in mind
             that incorrect answers will penalize your score and time by ten seconds.
         </p>
+
         <!-- start quiz button -->
         <div class="start-button"><button>Start Quiz</button></div>
+    </div>
+
+    <!-- container for questions and answer choices -->
+    <div class="question"></div>
+    <div class="choices"></div>
+
+    <!-- container for the score and countdown timer -->
+    <div class="quiz-container">
+        <div id="score">Score: 0</div>
+        <div id="countdown">Time left: <span id="time">60</span></div> 
+    </div>
+
+    <!-- container for results at the end of the quiz -->
+    <div class="results-container">
+        <h2>All done!</h2>
+        <p>Your final score is <span id="final-score"></span>.</p>
+
+        <!-- form to save scores -->
+        <form>
+            <label for="initials">Enter initials:</label>
+            <input type="text" id="initials" name="initials">
+            <input type="submit" value="Submit">
+        </form>
     </div>
 
    <script src="script.js"></script>

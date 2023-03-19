@@ -10,34 +10,7 @@
 // WHEN the game is over
 // THEN I can save my initials and score
 
-// selects element by id
-var timeEl=document.getElementById("timer");
-
-var secondsLeft = 60;
-
-function setTime (event) {
-    // prevent default action
-    event.preventDefault();
-    // sets interval in variable
-    var timerInterval = setInterval (function () {
-        secondsLeft--;
-        timeEl.textContent = "Time: " + secondsLeft;
-
-        if(secondsLeft === 0) {
-            // stops execution of action set at interval
-            clearInterval(timerInterval);
-            sendMessage();
-        };
-    }, 1000);
-}
-
-// setTime();
-
-var startQuiz = document.querySelector(".start-button");
-
-// start timer on 'start quiz' click
-startQuiz.addEventListener("click", setTime);
-
+// array of objects with quiz questions, choices and answers
 var quizQuestions = [
     {
         question: "What does HTML stand for?",
@@ -65,3 +38,113 @@ var quizQuestions = [
         answer: "multiple values in a single variable"
     }
 ]
+
+
+var secondsLeft = 60;
+var score = 0;
+var currentQuestionIndex = 0;
+// var timerInterval;
+
+// select elements by id
+var highScoreEl=document.getElementById("high-scores");
+var timerEl=document.getElementById("timer");
+var scoreEl=document.getElementById("score");
+var countdownEl=document.getElementById("countdown");
+var timeEl=document.getElementById("time");
+var finalScoreEl=document.getElementById("final-score");
+
+// select elements by class
+var quizContainer = document.querySelector(".quiz-container");
+var questionEl = document.querySelector(".question");
+var choicesEl = document.querySelector(".choices");
+
+// add event listener for start button
+var startBtn = document.querySelector(".start-button");
+startBtn.addEventListener("click", startQuiz);
+
+
+// set a function to hide the quiz info and start the timer once the 'start quiz' button is selected
+function startQuiz ()   {
+    // hide quiz info once quiz is started
+    var quizInfo = document.querySelector(".quiz-info");
+    quizInfo.style.display = "none";
+
+    //start timer
+    var timerInterval = setInterval (function () {
+        secondsLeft--;
+        timerEl.textContent = "Time: " + secondsLeft;
+
+        // end the quiz when the time runs out
+        if(secondsLeft === 0) {
+            endQuiz();
+            // stops execution of action set at interval
+            // clearInterval(timerInterval);
+            // sendMessage();
+        }
+    }, 1000);
+
+    // display first question
+    displayQuestion();
+}
+
+// function to display questions
+function displayQuestion (){
+    var currentQuestion = quizQuestions[currentQuestionIndex];
+    quizContainer.textContent = currentQuestion.question;
+    choicesEl.innerHTML = "";
+    for (var i=0; i < currentQuestion.choices.length; i++) {
+        var choiceBtn = document.createElement("button");
+        choiceBtn.addEventListener("click", () => {
+            if (choiceBtn.textContent === currentQuestion.answer) {
+                score += 10;
+                scoreEl.textContent = "Score: " + score;
+            } else {
+                time -= 10;
+                timerEl.textContent = time;
+            }
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizContainer.length) {
+                displayQuestion();
+            } else {
+                endQuiz ()
+            }
+        });
+        choicesEl.appendChild(choiceBtn);
+    }
+}
+// function to end the quiz
+function endQuiz () {
+    // stop displaying the questions and answer choices
+    quizContainer.style.display = "none";
+    choicesEl.style.display = "none";
+
+    // show final score and save to local storage
+    finalScoreEl.textContent = "Your final score is " + score;
+    var initials = initialsInput.value;
+    localStorage.setItem(initials, score);
+    
+}
+
+
+
+
+
+// function setTime (event) {
+//     // prevent default action
+//     event.preventDefault();
+//     // sets interval in variable
+//     var timerInterval = setInterval (function () {
+//         secondsLeft--;
+//         timeEl.textContent = "Time: " + secondsLeft;
+
+//         if(secondsLeft === 0) {
+//             // stops execution of action set at interval
+//             clearInterval(timerInterval);
+//             sendMessage();
+//         };
+//     }, 1000);
+// }
+
+// setTime();
+
+
