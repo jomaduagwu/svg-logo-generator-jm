@@ -18,41 +18,55 @@ THEN the game is over
 WHEN the game is over
 THEN I can save my initials and score
 
-Questions:
-What does HTML stand for?
-opt
-opt
-opt
-opt
+## Description
 
-How do you make a numbered list?
-opt
-opt
-opt
-opt
+The purpose of this project is to create a timed quiz on JavaScript fundamentals that stores high scores and enables the user to compare their progress to others taking the quiz.
 
-What does CSS stand for?
-Cascading Style Sheets
-opt
-opt
-opt
+## Table of Contents (Optional)
 
-Which of these is not a HTML element
-<h1>
-<p>
-<body>
-<l>
+- [Tasks Completed](#TasksCompleted)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Credits](#credits)
+- [License](#license)
 
-T/F a CSS rule consists of a selector and a declaration block
-True
-False
+## Tasks Completed
 
-How do you change the font of an element in CSS?
-font-family
-font-style
-font-weight
-font-type
+* Created a list of questions, choices and aswers
+* Added a function to display the quiz questions one after the other once the start button is clicked
+* Added the ability to add 10 points if the answer is correct, and to deduct 10 seconds from the timer if it is wrong
+* Added a function to display the final score and allow the user save their score once the quiz is completed
 
 
 
-Arrays im javascript can be used to store
+## Installation
+
+N/A
+
+## Usage
+
+The layout of this application is optimized for different screen sizes.
+
+Link to deployed website - https://jomaduagwu.github.io/friendly-parakeet/
+
+![Coding Quiz Screenshot](Develop/images/passport-generator-screenshot.png)
+
+## Credits
+
+Starter code was cloned from [Xandromus](https://github.com/coding-boot-camp/coding-quiz.git)
+
+## License
+
+Please refer to the LICENSE in the repo. 
+
+## Badges
+
+N/A
+
+## Features
+
+N/A
+
+## Tests
+
+N/A

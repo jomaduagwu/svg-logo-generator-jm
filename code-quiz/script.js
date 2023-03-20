@@ -13,19 +13,19 @@
 // array of objects with quiz questions, choices and answers
 var quizQuestions = [
     {
-        question: "What does HTML stand for?",
-        choices: ["Hyper Text Modul Language", "Hyper Text Markup Language", "Hyperlinks and Text Markup Language", "Home Tool Markup Language"],
-        answer: "Hyper Text Markup Language"
+        question: "Which of these is not an example of a primitive data type in JavaScript?",
+        choices: ["String", "Array", "Boolean", "Number"],
+        answer: "Array"
     },
     {
-        question: "What does CSS stand for?",
-        choices: ["Computer Style Sheets", "Creative Style Sheets", "Cascading Style Sheets", "Colorful Style Sheets"],
-        answer: "Cascading Style Sheets"
+        question: "How do you create a function in JavaScript?",
+        choices: ["function myFunction()", "function = myFunction()", "function:myFunction()"],
+        answer: "function myFunction()"
     },
     {
-        question: "Which of the following HTML elements is used for creating an unordered list?",
-        choices: ["<ui>", "<i>", "<li>", "<ul>"],
-        answer: "<ul>"
+        question: "Which operator is used to assign a value to a variable?",
+        choices: ["=", "x", "-", "*"],
+        answer: "="
     },
     {
         question: "Inside which HTML element do we put the JavaScript?",
@@ -43,24 +43,30 @@ var quizQuestions = [
 var secondsLeft = 60;
 var score = 0;
 var currentQuestionIndex = 0;
-// var timerInterval;
+var timerInterval;
 
 // select elements by id
 var highScoreEl=document.getElementById("high-scores");
 var timerEl=document.getElementById("timer");
 var scoreEl=document.getElementById("score");
-var countdownEl=document.getElementById("countdown");
 var timeEl=document.getElementById("time");
 var finalScoreEl=document.getElementById("final-score");
+var choiceBtns = document.querySelectorAll(".choices button");
 
 // select elements by class
 var quizContainer = document.querySelector(".quiz-container");
 var questionEl = document.querySelector(".question");
 var choicesEl = document.querySelector(".choices");
+var resultsEl = document.querySelector(".results-container");
+
+// user should be able to view high scores
+renderHighScores()
 
 // add event listener for start button
 var startBtn = document.querySelector(".start-button");
 startBtn.addEventListener("click", startQuiz);
+
+// on page load, want to hide the final score and form to input initials
 
 
 // set a function to hide the quiz info and start the timer once the 'start quiz' button is selected
@@ -68,9 +74,10 @@ function startQuiz ()   {
     // hide quiz info once quiz is started
     var quizInfo = document.querySelector(".quiz-info");
     quizInfo.style.display = "none";
+    // resultsEl.style.display="none"; //hide results container until the end of the quiz
 
     //start timer
-    var timerInterval = setInterval (function () {
+    timerInterval = setInterval (function () {
         secondsLeft--;
         timerEl.textContent = "Time: " + secondsLeft;
 
@@ -88,104 +95,68 @@ function startQuiz ()   {
     }, 1000);
 
     // display first question
-    displayNextQuestion();
+    displayQuestion();
 }
 
 // function to display questions one at a time
-function displayNextQuestion() {
+function displayQuestion() {
     if (currentQuestionIndex < quizQuestions.length) {
+        // get current question from the quizQuestions array
         var currentQuestion = quizQuestions[currentQuestionIndex];
-        quizContainer.textContent = currentQuestion.question;
+        // display the question on the screen
+        questionEl.textContent = currentQuestion.question;
+        // display the answer choices on the screen
         choicesEl.innerHTML =  "";
-
-        // display answer choices
         for (var i=0; i < currentQuestion.choices.length; i++) {
-        var choiceBtn = document.createElement("button");
-        choiceBtn.textContent = currentQuestion.choices[i];
-        choicesEl.appendChild(choiceBtn);
-    }
+            var buttonEl   = document.createElement("button");
+            buttonEl.textContent= currentQuestion.choices[i];
+            choicesEl.appendChild(buttonEl);
 
-    // add event listener to answer chocies
-    var choiceBtns = document.querySelectorAll(".choices button");
-    choiceBtns.forEach(function(choiceBtn) {
-        choiceBtn.addEventListener("click", function(event) {
+        // add event listener to answer chocies
+        buttonEl.addEventListener("click", function(event) {
             var selection = event.target.textContent;
             if (selection === currentQuestion.answer) {
                 score += 10;
                 scoreEl.textContent = "Score: " + score;
+                alert ("Correct!");
             } else {
                 secondsLeft -= 10;
                 timerEl.textContent = "Time: " + secondsLeft;
+                alert("Wrong!");
             }
             currentQuestionIndex++;
-            displayNextQuestion();
+            displayQuestion();
         });
-    });
+    };
 
 } else {
     endQuiz();
     clearInterval(timerInterval);
+    // resultsEl.style.display="display";
 }
 }
-// function displayQuestion (){
-//     var currentQuestion = quizQuestions[currentQuestionIndex];
-//     quizContainer.textContent = currentQuestion.question;
-//     choicesEl.innerHTML = "";
-//     for (var i=0; i < currentQuestion.choices.length; i++) {
-//         var choiceBtn = document.createElement("button");
-//         choiceBtn.addEventListener("click", () => {
-//             // add 10 points to score if answer is correct
-//             if (choiceBtn.textContent === currentQuestion.answer) {
-//                 score += 10;
-//                 scoreEl.textContent = "Score: " + score;
-//                 // deduct 10 points from time if answer is incorrect
-//             } else {
-//                 time -= 10;
-//                 timerEl.textContent = time;
-//             }
-//             currentQuestionIndex++;
-//             if (currentQuestionIndex < quizContainer.length) {
-//                 displayQuestion();
-//             } else {
-//                 endQuiz ()
-//             }
-//         });
-//         choicesEl.appendChild(choiceBtn);
-//     }
-// }
+
 // function to end the quiz
 function endQuiz () {
     // clearInterval(timerInterval);
     // stop displaying the questions and answer choices
     quizContainer.style.display = "none";
     choicesEl.style.display = "none";
-    countdownEl.style.display = "none";
+    questionEl.style.display = "none";
 
     // show final score and save to local storage
-    finalScoreEl.textContent = "All done! Your final score is " + score;
-    var initials = initialsInput.value;
+    finalScoreEl.textContent = " " + score;
+    var initials = document.getElementById("initials");
     localStorage.setItem(initials, score);
     
 }
 
+function renderHighScores () {
+    var initials = localStorage.getItem("initials");
+    var score = localStorage.getItem("score");
 
+}
 
-
-
-// function setTime (event) {
-//     // prevent default action
-//     event.preventDefault();
-//     // sets interval in variable
-//     var timerInterval = setInterval (function () {
-//         secondsLeft--;
-//         timeEl.textContent = "Time: " + secondsLeft;
-
-//         if(secondsLeft === 0) {
-//             // stops execution of action set at interval
-//             clearInterval(timerInterval);
-//             sendMessage();
-//         };
-//     }, 1000);
-// }
-
-// setTime();
+// time left shouldn't be displayed
+// all done, final score and initials should only be displayed at the end of the quiz
+// need to
