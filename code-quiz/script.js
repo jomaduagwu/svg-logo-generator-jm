@@ -76,6 +76,10 @@ function startQuiz ()   {
 
         // end the quiz when the time runs out
         if(secondsLeft === 0) {
+            timerEl.textContent = "Time: 0";
+            //  stop the timer
+            clearInterval(timerInterval);
+            // call the endQuiz() function
             endQuiz();
             // stops execution of action set at interval
             // clearInterval(timerInterval);
@@ -84,42 +88,81 @@ function startQuiz ()   {
     }, 1000);
 
     // display first question
-    displayQuestion();
+    displayNextQuestion();
 }
 
-// function to display questions
-function displayQuestion (){
-    var currentQuestion = quizQuestions[currentQuestionIndex];
-    quizContainer.textContent = currentQuestion.question;
-    choicesEl.innerHTML = "";
-    for (var i=0; i < currentQuestion.choices.length; i++) {
+// function to display questions one at a time
+function displayNextQuestion() {
+    if (currentQuestionIndex < quizQuestions.length) {
+        var currentQuestion = quizQuestions[currentQuestionIndex];
+        quizContainer.textContent = currentQuestion.question;
+        choicesEl.innerHTML =  "";
+
+        // display answer choices
+        for (var i=0; i < currentQuestion.choices.length; i++) {
         var choiceBtn = document.createElement("button");
-        choiceBtn.addEventListener("click", () => {
-            if (choiceBtn.textContent === currentQuestion.answer) {
+        choiceBtn.textContent = currentQuestion.choices[i];
+        choicesEl.appendChild(choiceBtn);
+    }
+
+    // add event listener to answer chocies
+    var choiceBtns = document.querySelectorAll(".choices button");
+    choiceBtns.forEach(function(choiceBtn) {
+        choiceBtn.addEventListener("click", function(event) {
+            var selection = event.target.textContent;
+            if (selection === currentQuestion.answer) {
                 score += 10;
                 scoreEl.textContent = "Score: " + score;
             } else {
-                time -= 10;
-                timerEl.textContent = time;
+                secondsLeft -= 10;
+                timerEl.textContent = "Time: " + secondsLeft;
             }
             currentQuestionIndex++;
-            if (currentQuestionIndex < quizContainer.length) {
-                displayQuestion();
-            } else {
-                endQuiz ()
-            }
+            displayNextQuestion();
         });
-        choicesEl.appendChild(choiceBtn);
-    }
+    });
+
+} else {
+    endQuiz();
+    clearInterval(timerInterval);
 }
+}
+// function displayQuestion (){
+//     var currentQuestion = quizQuestions[currentQuestionIndex];
+//     quizContainer.textContent = currentQuestion.question;
+//     choicesEl.innerHTML = "";
+//     for (var i=0; i < currentQuestion.choices.length; i++) {
+//         var choiceBtn = document.createElement("button");
+//         choiceBtn.addEventListener("click", () => {
+//             // add 10 points to score if answer is correct
+//             if (choiceBtn.textContent === currentQuestion.answer) {
+//                 score += 10;
+//                 scoreEl.textContent = "Score: " + score;
+//                 // deduct 10 points from time if answer is incorrect
+//             } else {
+//                 time -= 10;
+//                 timerEl.textContent = time;
+//             }
+//             currentQuestionIndex++;
+//             if (currentQuestionIndex < quizContainer.length) {
+//                 displayQuestion();
+//             } else {
+//                 endQuiz ()
+//             }
+//         });
+//         choicesEl.appendChild(choiceBtn);
+//     }
+// }
 // function to end the quiz
 function endQuiz () {
+    // clearInterval(timerInterval);
     // stop displaying the questions and answer choices
     quizContainer.style.display = "none";
     choicesEl.style.display = "none";
+    countdownEl.style.display = "none";
 
     // show final score and save to local storage
-    finalScoreEl.textContent = "Your final score is " + score;
+    finalScoreEl.textContent = "All done! Your final score is " + score;
     var initials = initialsInput.value;
     localStorage.setItem(initials, score);
     
@@ -146,5 +189,3 @@ function endQuiz () {
 // }
 
 // setTime();
-
-
