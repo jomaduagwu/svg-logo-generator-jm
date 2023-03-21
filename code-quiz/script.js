@@ -60,7 +60,7 @@ var choicesEl = document.querySelector(".choices");
 var resultsEl = document.querySelector(".results-container");
 
 // user should be able to view high scores
-renderHighScores()
+// renderHighScores()
 
 // add event listener for start button
 var startBtn = document.querySelector(".start-button");
@@ -136,6 +136,7 @@ function displayQuestion() {
 }
 }
 
+
 // function to end the quiz
 function endQuiz () {
     // clearInterval(timerInterval);
@@ -146,17 +147,42 @@ function endQuiz () {
 
     // show final score and save to local storage
     finalScoreEl.textContent = " " + score;
-    var initials = document.getElementById("initials");
-    localStorage.setItem(initials, score);
     
 }
 
-function renderHighScores () {
-    var initials = localStorage.getItem("initials");
-    var score = localStorage.getItem("score");
+var submitBtn = document.querySelector("#submit");
+var initials = document.querySelector("#initial");
+var submit = localStorage.getItem("submit");
+// initials.textContent = initials;
+// score.textContent = score;
+console.log(initials);
 
-}
+submitBtn.addEventListener("click", function (event){ 
+    event.preventDefault();
 
+    var initials = document.querySelector("#initial").value;
+    var score = document.querySelector("#final-score").value;
+
+    if (initials === "") {
+        displayMessage("Error", "Initials cannot be blanj");
+      } else {
+        displayMessage("Success", "High Score saved successfully");
+
+    localStorage.setItem("initials", initials);
+    localStorage.setItem("score", score);
+      }
+}); 
+// function renderHighScores () {
+//     var initials = localStorage.getItem("initials");
+//     var score = localStorage.getItem("score");
+
+// }
+
+// var submitBtn.addEventListener('click', function () {
+
+// })
 // time left shouldn't be displayed
 // all done, final score and initials should only be displayed at the end of the quiz
 // need to
+
+// var initialsInput = document.querySelector("#initials");

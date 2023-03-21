@@ -49,7 +49,7 @@ The layout of this application is optimized for different screen sizes.
 
 Link to deployed website - https://jomaduagwu.github.io/friendly-parakeet/
 
-![Coding Quiz Screenshot](Develop/images/passport-generator-screenshot.png)
+![Coding Quiz Screenshot](assets/images/coding-quiz-screenshot.png)
 
 ## Credits
 
