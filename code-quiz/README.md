@@ -47,13 +47,13 @@ N/A
 
 The layout of this application is optimized for different screen sizes.
 
-Link to deployed website - https://jomaduagwu.github.io/friendly-parakeet/
+Link to deployed website - https://jomaduagwu.github.io/coding-quiz/
 
-![Coding Quiz Screenshot](assets/images/coding-quiz-screenshot.png)
+![Coding Quiz Screenshot](/images/coding-quiz-screenshot.png)
 
 ## Credits
 
-Starter code was cloned from [Xandromus](https://github.com/coding-boot-camp/coding-quiz.git)
+N/A
 
 ## License
 
