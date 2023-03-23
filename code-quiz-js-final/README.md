@@ -47,7 +47,7 @@ N/A
 
 The layout of this application is optimized for different screen sizes.
 
-Link to deployed website - https://jomaduagwu.github.io/coding-quiz/
+Link to deployed website - https://jomaduagwu.github.io/code-quiz/
 
 ![Coding Quiz Screenshot](/images/coding-quiz-screenshot.png)
 

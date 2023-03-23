@@ -59,22 +59,20 @@ var questionEl = document.querySelector(".question");
 var choicesEl = document.querySelector(".choices");
 var resultsEl = document.querySelector(".results-container");
 
-// user should be able to view high scores
-// renderHighScores()
+// hide the results container on page load 
+window.onload = function () {
+    document.querySelector(".results-container").style.display = "none";
+}
 
 // add event listener for start button
 var startBtn = document.querySelector(".start-button");
 startBtn.addEventListener("click", startQuiz);
-
-// on page load, want to hide the final score and form to input initials
-
 
 // set a function to hide the quiz info and start the timer once the 'start quiz' button is selected
 function startQuiz ()   {
     // hide quiz info once quiz is started
     var quizInfo = document.querySelector(".quiz-info");
     quizInfo.style.display = "none";
-    // resultsEl.style.display="none"; //hide results container until the end of the quiz
 
     //start timer
     timerInterval = setInterval (function () {
@@ -131,8 +129,11 @@ function displayQuestion() {
 
 } else {
     endQuiz();
+    // stop timer
     clearInterval(timerInterval);
-    // resultsEl.style.display="display";
+
+    //display results at the end of the quiz
+    resultsEl.style.display="block";
 }
 }
 
@@ -150,39 +151,58 @@ function endQuiz () {
     
 }
 
-var submitBtn = document.querySelector("#submit");
-var initials = document.querySelector("#initial");
-var submit = localStorage.getItem("submit");
-// initials.textContent = initials;
-// score.textContent = score;
-console.log(initials);
+// var submitBtn = document.querySelector("#submit");
+// var initialsInput = document.querySelector("#initials");
+// var submit = localStorage.getItem("submit");
+// // initials.textContent = initials;
+// // score.textContent = score;
+// console.log(initialsInput);
 
-submitBtn.addEventListener("click", function (event){ 
-    event.preventDefault();
+// submitBtn.addEventListener("click", function (event){ 
+//     // event.preventDefault();
 
-    var initials = document.querySelector("#initial").value;
-    var score = document.querySelector("#final-score").value;
+//     var initialsInput = document.querySelector("#initials").value;
+//     var score = document.querySelector("#final-score").value;
 
-    if (initials === "") {
-        displayMessage("Error", "Initials cannot be blanj");
-      } else {
-        displayMessage("Success", "High Score saved successfully");
+//     if (initials === "") {
+//         displayMessage("Error", "Initials cannot be blank");
+//       } else {
+//         displayMessage("Success", "High Score saved successfully");
 
-    localStorage.setItem("initials", initials);
-    localStorage.setItem("score", score);
-      }
-}); 
+//     localStorage.setItem("initials", initials);
+//     localStorage.setItem("score", score);
+//       }
+// }); 
+// show high scores
 // function renderHighScores () {
 //     var initials = localStorage.getItem("initials");
 //     var score = localStorage.getItem("score");
 
 // }
 
-// var submitBtn.addEventListener('click', function () {
+// add submitted scores to scores array
+var scores = [];
+document.getElementById("submit").addEventListener("click", function () {
+    var initials = document.getElementById("initials").value;
+    var score = document.getElementById("final-score").textContent;
+    var savedScore = { initials: initials, score: score };
+    scores.push(savedScore);
 
-// })
-// time left shouldn't be displayed
-// all done, final score and initials should only be displayed at the end of the quiz
-// need to
+// save the scores array in local storage
+localStorage.setItem("scores", JSON.stringify(scores));
+});
 
-// var initialsInput = document.querySelector("#initials");
+
+// retrieve high scores from local storage when user clicks 'view high scores'
+document.getElementById("high-scores").addEventListener("click", function () {
+    var scoresString = localStorage.getItem("scores");
+    var scores = JSON.parse(scoresString);
+
+    // display scores
+    var scoresList = document.getElementById("score");
+    scores.forEach(function(savedScore) {
+        var li = document.createElement("li");
+        li.textContent = savedScore.initials + " - " + savedScore.score;
+        scoresList.appendChild(li);
+    });
+});
