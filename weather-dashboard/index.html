@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
     <script
       src="https://code.jquery.com/jquery-3.5.1.min.js"
@@ -14,30 +16,27 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>Weather Dashboard</h1>   
-        <div class="weather">
-            <div class="weather-info">
-                <p id="city"></p>
-            </div>
-        </div>
-    </div>
+    <header>
+        <h1>Weather Dashboard</h1> 
+    </header>
     <main>
         <section class="city-search">
-            <header>
                 <h2>Search for a City:</h2>
-            </header>
-            <form></form>
-            <button class="search-btn" id="fetch-btn">Search</button>
+            <form>
+                <input type="text", id="city-input" placeholder="Enter a city">
+                <button type="submit">Search</button>
+            </form>
         </section>
-        <section class="search-value">
-        </section>
+
+        <section class="current-weather"></section>
         <section class="forecast">
-            <header>
                 <h2>5-Day Forecast:</h2>
-            </header>
         </section>
+        <section class="search-history"></section>
+
     </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
     <script src="assets/js/script.js"></script> 
 </body>
 </html>

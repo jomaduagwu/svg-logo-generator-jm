@@ -14,3 +14,17 @@
 ## THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 ## WHEN I click on a city in the search history
 ## THEN I am again presented with current and future conditions for that city
+
+# Weather Dashboard
+
+## A weather dashboard application that allows the user to search for a city and be presented with current and future conditions for the city.
+
+## Installation
+The project was cloned from _______
+
+
+## Tools
+Bootstrap
+Font Awesome
+OpenWeather
+jQuery
