@@ -16,7 +16,7 @@ $(document).ready(function () {
   // api key and api url variables
   var apiKey = "d790997ca229b3abb8cc2c3ff03ae371";
   // open weather map geocoding api
-  var apiUrl = "http://api.openweathermap.org/geo/1.0/direct";
+  var apiUrl = "https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=${APIKey}";
 
   // add event listener for form submit event
   $("form").submit(function(event) {

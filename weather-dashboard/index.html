@@ -16,14 +16,36 @@
 </head>
 
 <body>
-    <header>
+    <!-- <header>
         <h1>Weather Dashboard</h1> 
-    </header>
+    </header> -->
     <main>
+        <div class="jumbotron container-fluid mt-2 text-center">
+            <h1>Weather Dashboard</h1>
+        </div>
+        <div class="container py-5 my-5">
+            <div class="row">
+                <div class="col-sm-4 bg-light">
+                    <h4 class="pt-1">Search for a City:</h4>
+                    <div class="city-input mb-3">
+                        <input type="text", id="search-city" placeholder="Enter a city">
+                    </div>
+                </div>
+            </div>
+            <div class="forecast">
+                <p class="date"></p>
+                <p class="icon"></p>
+                <p class="temp"></p>
+                <p class="wind"></p>
+                <p class="humidity"></p>
+            </div>
+            
+
+        </div>
         <section class="city-search">
                 <h2>Search for a City:</h2>
             <form>
-                <input type="text", id="city-input" placeholder="Enter a city">
+                
                 <button type="submit" id="submit">Search</button>
             </form>
         </section>
