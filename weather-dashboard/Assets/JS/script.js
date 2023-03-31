@@ -1,12 +1,91 @@
-// get the weather based on city name input
-function getWeather(city) {
-  var apiKey = "d790997ca229b3abb8cc2c3ff03ae371";
-  var requestURL = "http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial";
+// api test
+// requestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q={houston}&appid=d790997ca229b3abb8cc2c3ff03ae371';
+// // var apiKey = "d790997ca229b3abb8cc2c3ff03ae371";
 
-  $.getJSON(requestURL) {
-    
-  }
+// fetch(requestUrl)
+//   .then(function (response) {
+//     return response.json();
+//   })
+//   .then(function (data) {
+//     console.log(data);
+//   });
+
+$(document).ready(function() {
+  // select the search form and attach an event listener to it
+  $('#search-form').on('submit', function(event) {
+    // prevent the default form submission behavior
+    event.preventDefault();
+    // retrieve the city name entered by the user
+    var city = $('#search-input').val();
+    getWeather(city);
+  });
+  
+  function getWeather(city){
+    var apiKey = "d790997ca229b3abb8cc2c3ff03ae371";
+    var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=${city}&sunits=imperial&appid=${apiKey}";
+
+    fetch(apiUrl)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+
+      var cityEl = document.querySelector("#city");
+      var dateEl = document.querySelector("#date");
+      var tempEl = document.querySelector("#temperature");
+      var windEl = document.querySelector("#wind");
+      var humidEl = document.querySelector("#humidity");
+      var iconEl = document.querySelector("#weather-icon");
+
+      cityEl.textContent = data.name;
+      dateEl.textContent = new Date().toLocaleDateString();
+      tempEl.textContent = data.main.temp.toFixed(0);
+      windEl.textContent = data.wind.speed.toFixed(0);
+      humidEl.textContent = data.main.humidity;
+      iconEl.setAttribute(
+        "src",
+        `https://openweathermap.org/img/w/${data.weather[0].icon}.png`
+      );
+    })
+    .catch((error) => console.log(error));
 }
+});
+    // make a request to the OpenWeatherMap API to retrieve weather data for the city
+    
+    // you can then use jQuery's AJAX method to make the request and handle the response
+    // for example:
+//     $.ajax({
+//       url: apiUrl,
+//       method: 'GET'
+//     }).then(function(response) {
+//       // handle the response data
+//       console.log(response);
+//     }).catch(function(error) {
+//       // handle the error
+//       console.log(error);
+//     });
+//   });
+// });
+
+
+
+// var cityInput = $('#city-input').val; //.val necessary?
+// var 
+
+// // get the weather based on city name input
+// function getWeather(city) {
+//   var apiKey = "d790997ca229b3abb8cc2c3ff03ae371";
+//   var requestURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityInput + "&appid=${apiKey}&units=imperial";
+
+//   $.getJSON(requestURL).then(function (response) {
+//     if (response.ok) {
+//       response.json().then(function (data) {
+
+//       })
+//     }
+//   }) {
+    
+//   }
+// }
 
 
 // $(document).ready(function () {

@@ -42,3 +42,10 @@ form button[type="submit"] {
 .current-weather, .forecast, .search-history {
     display: none;
 }
+
+.current-weather {
+    border-style: solid ;
+    margin-top: 15px;
+    margin-bottom: 15px;
+
+}

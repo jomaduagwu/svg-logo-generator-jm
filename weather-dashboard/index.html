@@ -16,7 +16,7 @@
 </head>
 
 <body>
-    <header class= "container">
+    <header>
         <h1 class="title">Weather Dashboard</h1> 
     </header>
     <main class="dashboard">
@@ -25,6 +25,8 @@
                 <div class="row">
 
                     <!-- current weather -->
+                    
+                    <!-- <div class="display"></div> -->
                     <div class="col-12 current-weather p-0">
                         <div class="d-flex city-name">
                             <h2 id="city"></h2>
@@ -125,11 +127,11 @@
 
     <!-- form to search for cities -->
     <div class="col-sm-12 col-md-3 left-panel order-md-1">
-        <form>
+        <form id="search-form">
             <div class="form-row">
                 <div class="form-group col-8">
                     <label for="city-input">Search for a City:</label>
-                    <input type="text" placeholder="Enter a City" class="form-control" id="city-input">
+                    <input type="text" name="search" id="city-input" placeholder="Enter a City" >
                 </div>
                 <div class="col-auto">
                     <button type="submit" class="btn btn-primary mb-2 align-text-bottom" id="search-btn">Search
