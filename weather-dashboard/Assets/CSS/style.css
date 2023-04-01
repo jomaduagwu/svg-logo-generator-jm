@@ -39,9 +39,9 @@ form button[type="submit"] {
     margin-top: 5px;
 }
 
-.current-weather, .forecast, .search-history {
+/* .current-weather, .forecast, .search-history {
     display: none;
-}
+} */
 
 .current-weather {
     border-style: solid ;
