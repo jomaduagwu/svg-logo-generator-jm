@@ -1,6 +1,11 @@
 // Define the API key and API URL
 var apiKey = "d790997ca229b3abb8cc2c3ff03ae371";
 var apiUrl = "https://api.openweathermap.org/data/2.5/"; //weather?q=
+var apirealurl = "https://api.openweathermap.org/geo/1.0/direct?q=";
+
+var fiveDayUrl = "https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}";
+// need to set lat and lon so it can pull
+// var openweather = apirealurl + cityInput + "&appid=" + apiKey;
 
 // Get references to the HTML elements
 var searchForm = document.querySelector("#search-form");
@@ -12,6 +17,13 @@ var fiveDayForecast = document.querySelector(".five-day-forecast");
 var recentCities = document.querySelector(".recent-searches");
 var cityList = document.querySelector(".city-list");
 
+// fetch(openweather) 
+//     .then(function (response) {
+//         return response.json();
+//     })
+//     .then(function (data) {
+//         console.log(data)
+//     });
 // Add an event listener to the search form
 searchForm.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -19,14 +31,17 @@ searchForm.addEventListener("submit", function (event) {
   var cityName = cityInput.value;
   // varruct the API URL with the city name and API key
   var apiEndpoint = `${apiUrl}weather?q=${cityName}&appid=${apiKey}&units=imperial`;
+  var openweather = `${apiUrl}weather?q=${cityName}&appid=${apiKey}&units=imperial`;
   // Send a GET request to the API endpoint and handle the response
-  fetch(apiEndpoint)
+  // 
+  fetch(openweather)
     .then((response) => {
-        // .then(respone => response.json())
+        // .then(response => response.json())
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
       return response.json();
+  
     })
     .then((data) => {
       // Extract the weather data from the API response
@@ -36,7 +51,7 @@ searchForm.addEventListener("submit", function (event) {
       var temp = data.main.temp;
       var wind = data.wind.speed;
       var humidity = data.main.humidity;
-     
+     console.log(data);
       // Update the dashboard with the weather data
       currentWeather.querySelector("#city").textContent = cityName;
       currentWeather.querySelector("#date").textContent = date.toLocaleDateString();
