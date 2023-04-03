@@ -49,3 +49,13 @@ form button[type="submit"] {
     margin-bottom: 15px;
 
 }
+
+.card {
+    background-color: rgb(92, 92, 239);
+    color: white;
+}
+    
+
+.city-list {
+    list-style: none;
+}

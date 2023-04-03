@@ -1,39 +1,28 @@
-// Define the API key and API URL
+// Define the API key and API URL from OpenWeatherMap
 var apiKey = "d790997ca229b3abb8cc2c3ff03ae371";
-var apiUrl = "https://api.openweathermap.org/data/2.5/"; //weather?q=
-var apirealurl = "https://api.openweathermap.org/geo/1.0/direct?q=";
+var apiUrl = "https://api.openweathermap.org/data/2.5/"; 
 
-var fiveDayUrl = "https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}";
-// need to set lat and lon so it can pull
-// var openweather = apirealurl + cityInput + "&appid=" + apiKey;
-
-// Get references to the HTML elements
+// get references to the HTML elements
 var searchForm = document.querySelector("#search-form");
 var cityInput = document.querySelector("#city-input");
 var searchBtn = document.querySelector("#search-btn");
-var searchHist = document.querySelector(".search-hist");
+var searchHistory = document.querySelector(".search-history");
 var currentWeather = document.querySelector(".current-weather");
 var fiveDayForecast = document.querySelector(".five-day-forecast");
 var recentCities = document.querySelector(".recent-searches");
 var cityList = document.querySelector(".city-list");
 
-// fetch(openweather) 
-//     .then(function (response) {
-//         return response.json();
-//     })
-//     .then(function (data) {
-//         console.log(data)
-//     });
-// Add an event listener to the search form
+// add an event listener to the search form
 searchForm.addEventListener("submit", function (event) {
   event.preventDefault();
-  // Get the city name from the search input
+
+  // get the city name from the search input
   var cityName = cityInput.value;
-  // varruct the API URL with the city name and API key
-  var apiEndpoint = `${apiUrl}weather?q=${cityName}&appid=${apiKey}&units=imperial`;
+
+  // set the five day forecast url
   var openweather = `${apiUrl}weather?q=${cityName}&appid=${apiKey}&units=imperial`;
-  // Send a GET request to the API endpoint and handle the response
-  // 
+
+  // set a GET request to openweather and handle the response
   fetch(openweather)
     .then((response) => {
         // .then(response => response.json())
@@ -44,6 +33,7 @@ searchForm.addEventListener("submit", function (event) {
   
     })
     .then((data) => {
+
       // Extract the weather data from the API response
       var cityName = data.name;
       var date = new Date(data.dt * 1000);
@@ -52,6 +42,7 @@ searchForm.addEventListener("submit", function (event) {
       var wind = data.wind.speed;
       var humidity = data.main.humidity;
      console.log(data);
+
       // Update the dashboard with the weather data
       currentWeather.querySelector("#city").textContent = cityName;
       currentWeather.querySelector("#date").textContent = date.toLocaleDateString();
@@ -60,54 +51,49 @@ searchForm.addEventListener("submit", function (event) {
       currentWeather.querySelector("#wind").textContent = wind;
       currentWeather.querySelector("#humidity").textContent = humidity;
 
-      // after line 31 (.then((date)))... 
-      // currentWeather.innerHTML = "
-    //      <h2>${data.name}</h2>
-    //     <p>Temperature: ${data.main.temp}</p>
-    //     <p>Wind Speed: ${data.wind.speed}</p>
-    //     <p>Humidity: ${data.main.humidity}</p>
-    //    "
-        // Use the city name to fetch the 5-day forecast for the city
-        
+        // Use the city name to fetch the 5-day forecast for the city        
         var fiveForecast = `${apiUrl}forecast?q=${cityName}&appid=${apiKey}&units=imperial`;
         fetch(fiveForecast) 
         .then(response => response.json())
+
         .then(data => {
+          // filter forecast to display weather at noon only for each day
+          var noonForecast = data.list.filter(item => new Date(item.dt * 1000).getHours() === 12);
+          
         // Update the 5-day forecast section with the relevant data
-        fiveDayForecast.innerHTML = '';
-        data.list.forEach(item => { 
-            const date = new Date(item.dt * 1000);
-            fiveDayForecast.innerHTML += `
-            <div>
-                <p>${date.toDateString()}</p>
-                <p>Temperature: ${item.main.temp}</p>
-                <p>Wind: ${item.wind.speed}</p>
-                <p>Humidity: ${item.main.humidity}</p>
-            </div>
-            `;
-            console.log(data);
-        });
+        var fiveDayForecastCardsEl = document.querySelectorAll(".five-day-forecast .card");
+        for (let i = 0; i < fiveDayForecastCardsEl.length; i++) {
+          var card = fiveDayForecastCardsEl[i];
+          var dateEl = card.querySelector(".card-title");
+          var weatherIconEl = card.querySelector(".five-day-img");
+          var tempEl = card.querySelector(".five-day-temp");
+          var windEl = card.querySelector(".five-day-wind");
+          var humidityEl = card.querySelector(".five-day-humid");
 
-        // Add the city to the search history
-        searchHist.push(data.name);
-        searchHist.innerHTML = '';
-        searchHist.forEach(city => {
-            searchHist.innerHTML += `
-            <li><button>${city}</button></li>
-            `;
-
-      // Store the searched city in local storage
-      var searchHist= JSON.parse(localStorage.getItem("searchHist")) || [];
-      searchHist.push(cityName);
-      localStorage.setItem("searchHist", JSON.stringify(searchHist));
+          var forecastIndex = i * 8 + 4;
+          dateEl.textContent = new Date(data.list[forecastIndex].dt * 1000).toLocaleDateString();
+          weatherIconEl.src = `https://openweathermap.org/img/w/${data.list[forecastIndex].weather[0].icon}.png`;
+          tempEl.textContent = data.list[forecastIndex].main.temp.toFixed(1);
+          windEl.textContent = data.list[forecastIndex].wind.speed.toFixed(1);
+          humidityEl.textContent = data.list[forecastIndex].main.humidity.toFixed(1);
+        }
+      });
     })
-    .catch((error) => {
-      console.error("Error fetching weather data", error);
-    });
+  .catch(error => console.error(error));      
 });
-    });
-})
+      // Store the searched city in local storage
+      var searchHistory= JSON.parse(localStorage.getItem("searchHistory")) || [];
+      searchHistory.push(cityName);
+      localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 
-// // $("#clear-history").on("click",clearHistory)
-// need to use the geocoding url
-// change icon
+      cityList.innerHTML = "";
+
+       // Loop through the search history array and create list items to display the city names
+      for (var i = 0; i < searchHistory.length; i++) {
+        var cityName = searchHistory[i];
+        var li = document.createElement("li");
+        li.textContent = cityName;
+        cityList.appendChild(li);
+      }
+    
+     
