@@ -68,12 +68,14 @@ searchForm.addEventListener("submit", function (event) {
     //     <p>Humidity: ${data.main.humidity}</p>
     //    "
         // Use the city name to fetch the 5-day forecast for the city
-        fetch("https://api.openweathermap.org/data/2.5/forecast?q=${data.name}&appid=${apiKey}") //error here
+        
+        var fiveForecast = `${apiUrl}forecast?q=${cityName}&appid=${apiKey}&units=imperial`;
+        fetch(fiveForecast) 
         .then(response => response.json())
         .then(data => {
         // Update the 5-day forecast section with the relevant data
         fiveDayForecast.innerHTML = '';
-        data.list.forEach(item => { //error here
+        data.list.forEach(item => { 
             const date = new Date(item.dt * 1000);
             fiveDayForecast.innerHTML += `
             <div>
@@ -83,6 +85,7 @@ searchForm.addEventListener("submit", function (event) {
                 <p>Humidity: ${item.main.humidity}</p>
             </div>
             `;
+            console.log(data);
         });
 
         // Add the city to the search history
