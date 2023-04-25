@@ -1,0 +1,14 @@
+{
+  "name": "logo-maker",
+  "version": "1.0.0",
+  "description": "a logo generator",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^9.2.0"
+  }
+}
