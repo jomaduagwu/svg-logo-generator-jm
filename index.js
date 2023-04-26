@@ -1,5 +1,5 @@
-const MAIN = require('./lib/main.js');
+const questions = require('./lib/questions.js');
 
-const main = new MAIN();
+const main = new questions();
 
 main.run();
