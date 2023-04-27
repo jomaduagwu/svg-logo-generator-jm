@@ -22,7 +22,7 @@ THEN I am shown a 300x200 pixel image that matches the criteria I entered
 
 
 ## Description
-  This application was created to 
+  This application was created to generate an SVG logo, using the selected shape, shape color, text and text color.
 
 
 ## Table of Contents
@@ -41,6 +41,8 @@ THEN I am shown a 300x200 pixel image that matches the criteria I entered
   ## Usage
   You can find the walkthrough video here - [logo generator walkthrough video](https://drive.google.com/file/d/---------------------/view?usp=sharing)
 
+  Start by opening the file in the terminal. Type `node index.js` and answer the series of questions about the type of logo you want. Once all prompts have been answered, the new logo will be generated in the examples folder with the name 'E'xampleLogo.svg'.
+
   ![logo generator video](./assets/.........gif)
 
 
@@ -51,7 +53,7 @@ THEN I am shown a 300x200 pixel image that matches the criteria I entered
 
 
 ## Credits
-
+ [classes extends](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/extends)
   
 
 ## Features
@@ -59,7 +61,7 @@ N/A
 
 
 ## Tests 
-Each shape is tested for render() method that returns a string for the corresponding SVG file matching color and text. `npm test` in the command line will run all the three tests.
+Each shape is tested for render() method that returns a string for the corresponding SVG file matching color and text selection. `npm test` in the command line will run all the three tests.
 
 
 ## License
