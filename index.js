@@ -58,7 +58,7 @@ function writeToFile(fileName, data) {
 function init() {
     inquirer.prompt(questions).then((data) => {
         const logoContent = generateLogo(data);
-        writeToFile('ExampleLogo.svg', logoContent);
+        writeToFile('./examples/ExampleLogo.svg', logoContent);
     });
 }
 
