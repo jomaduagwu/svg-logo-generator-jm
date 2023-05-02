@@ -2,10 +2,10 @@
     <svg width="300" height="200">
     <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
     
-            <circle cx="50" cy="50" r="50" fill="purple" />
+        <polygon points="25, 5 62.5, 62.5 0, 62.5" fill="pink" transform="translate(22.5,3)" />
         
     <text x="50" y="50" text-anchor="middle" fill="yellow">
-      bcg
+      gil
     </text>
     </svg>
     
